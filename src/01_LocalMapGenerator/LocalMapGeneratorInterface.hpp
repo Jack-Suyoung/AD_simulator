@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../common/CommonTypes.hpp"
+#include "../00_Common/CommonTypes.hpp"
 
 // 인터페이스에서 사용할 지도 데이터 구조체
 struct LocalMapData {

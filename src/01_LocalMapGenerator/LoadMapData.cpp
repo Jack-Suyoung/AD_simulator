@@ -1,8 +1,9 @@
-#include "LoadMapData.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+
+#include "LoadMapData.hpp"
 
 bool MapData::LoadMapData(const std::string& filename) {
     std::ifstream file(filename);

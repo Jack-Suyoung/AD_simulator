@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "../common/CommonTypes.hpp"
+#include "../00_Common/CommonTypes.hpp"
 
 
 // MapData 클래스 정의

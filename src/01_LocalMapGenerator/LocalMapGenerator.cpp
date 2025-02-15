@@ -5,7 +5,7 @@
 void MapGenerator(LocalMapData* pstLMGOutput)
 {
     // CSV 파일 경로 설정
-    std::string csv_file_path = "mapdata/Straight_and_Arc_Lane_Data.csv";
+    std::string csv_file_path = "Data/mapdata/Straight_and_Arc_Lane_Data.csv";
 
     // LocalMapGenerator 객체 생성
     LocalMapGenerator local_map_gen(csv_file_path);

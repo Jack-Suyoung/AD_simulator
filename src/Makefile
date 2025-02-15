@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -I LocalMapGenerator -Wall -Wextra -std=c++17
 
 # 소스 및 객체 파일 경로 설정
-SRC = main.cpp LocalMapGenerator/LoadMapData.cpp LocalMapGenerator/LocalMapGenerator.cpp
+SRC = main.cpp 01_LocalMapGenerator/LoadMapData.cpp 01_LocalMapGenerator/LocalMapGenerator.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # 실행 파일 이름

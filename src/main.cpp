@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "LocalMapGenerator/LocalMapGeneratorInterface.hpp"
+#include "01_LocalMapGenerator/LocalMapGeneratorInterface.hpp"
 
 int main() {
     LocalMapData stMapInfo;
