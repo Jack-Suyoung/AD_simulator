@@ -9,9 +9,9 @@ struct Point {
 };
 
 typedef struct tVehicleState{
-    double X_m;
-    double Y_m;
-    double Heading_rad;
+    double Global_X_m;
+    double Global_Y_m;
+    double Global_Heading_rad;
     double FrontWhlAng_rad;
     double speed_mps;
 }VehicleState_t;
@@ -40,8 +40,8 @@ typedef struct tPlanningResults {
 }PlanningResults_t;
 
 typedef struct tControlResults {
-    double stStrCmd;
-    double stAccelCmd;
+    double stStrCmd_rad;
+    double stAccelCmd_mps2;
 }ControlResults_t;
 
 #endif // COMMON_TYPES_HPP

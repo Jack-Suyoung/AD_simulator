@@ -9,7 +9,8 @@ SRC = main.cpp \
 	02_BehaviorPlanning/BehaviorPlanning.cpp \
 	03_PlanningAndControl/PlanningAndControl.cpp \
 	04_VehicleStateUpdate/VehicleStateUpdate.cpp \
-	04_VehicleStateUpdate/KinematicBicycleModel.cpp
+	04_VehicleStateUpdate/KinematicBicycleModel.cpp \
+	04_VehicleStateUpdate/GlobalStateUpdater.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "00_Common/CommonTypes.hpp"
 #include "01_LocalMapGenerator/MapGenerator.hpp"
@@ -19,7 +20,9 @@ int main() {
     MapGenerator(&stMapInfo);
 
     // Initialize Ego State
-
+    stEgoState.Global_X_m = stMapInfo.center_line[0].x;
+    stEgoState.Global_Y_m = stMapInfo.center_line[0].y;
+    stEgoState.Global_Heading_rad = atan2(stMapInfo.center_line[1].y - stMapInfo.center_line[0].y, stMapInfo.center_line[1].x - stMapInfo.center_line[0].x);
 
     // while (1)
     // { 
@@ -31,8 +34,10 @@ int main() {
         // 03_Planning And Control
         PlanningAndControl(&stBehaviorInfo, &stPlanningInfo, &stControlInfo);
 
-        //
+        // 04_Vehicle States Update
         VehicleStateUpdate(&stControlInfo, &stEgoState);
+
+
         // Viz Draw
     // }
 
