@@ -1,6 +1,8 @@
-#include "GlobalStateUpdater.hpp"
 #include <cmath>
 #include <iostream>
+
+#include "KinematicBicycleModel.hpp"
+#include "GlobalStateUpdater.hpp"
 
 GlobalStateUpdater::GlobalStateUpdater(double init_x, double init_y, double init_heading)
     : global_x_(init_x), global_y_(init_y), global_heading_(init_heading) {}

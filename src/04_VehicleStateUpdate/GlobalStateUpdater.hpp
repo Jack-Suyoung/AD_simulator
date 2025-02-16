@@ -1,8 +1,6 @@
 #ifndef GLOBAL_STATE_UPDATER_HPP
 #define GLOBAL_STATE_UPDATER_HPP
 
-#include "KinematicBicycleModel.hpp"
-
 class GlobalStateUpdater {
 public:
     // 생성자: 초기 위치와 방향 설정
