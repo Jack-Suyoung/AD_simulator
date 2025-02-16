@@ -1,12 +1,15 @@
 # 컴파일러 및 옵션 설정
 CC = g++
-CFLAGS = -I . -I 02_BehaviorPlanning -I 01_LocalMapGenerator -Wall -Wextra -std=c++17
+CFLAGS = -I . -I 01_LocalMapGenerator -I 02_BehaviorPlanning -I 03_PlanningAndControl 04_VehicleStateUpdate -Wall -Wextra -std=c++17
 
 # 소스 및 객체 파일 경로 설정
 SRC = main.cpp \
 	01_LocalMapGenerator/LoadMapData.cpp \
-	01_LocalMapGenerator/LocalMapGenerator.cpp \
-	02_BehaviorPlanning/BehaviorPlanning.cpp
+	01_LocalMapGenerator/MapGenerator.cpp \
+	02_BehaviorPlanning/BehaviorPlanning.cpp \
+	03_PlanningAndControl/PlanningAndControl.cpp \
+	04_VehicleStateUpdate/VehicleStateUpdate.cpp \
+	04_VehicleStateUpdate/KinematicBicycleModel.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

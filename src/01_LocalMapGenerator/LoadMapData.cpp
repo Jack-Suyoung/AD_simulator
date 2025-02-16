@@ -62,3 +62,24 @@ void MapData::PrintMapData() const {
                   << "Right: (" << right_lane[i].x << ", " << right_lane[i].y << ")" << std::endl;
     }
 }
+
+LocalMapGenerator::LocalMapGenerator(const std::string& map_file)
+    : map_file_path(map_file) {}
+
+bool LocalMapGenerator::LoadMap(LoadMapData& output_map) {
+    MapData map_data;
+
+    // CSV 파일에서 지도 데이터를 로드
+    if (!map_data.LoadMapData(map_file_path)) {
+        std::cerr << "LocalMapGenerator: 지도 데이터 로드 실패!" << std::endl;
+        return false;
+    }
+
+    // MapData의 데이터를 LocalMapData 구조체로 변환하여 저장
+    output_map.center_line = map_data.GetCenterLine();
+    output_map.left_lane = map_data.GetLeftLane();
+    output_map.right_lane = map_data.GetRightLane();
+
+    std::cout << "LocalMapGenerator: 지도 데이터 로드 성공!" << std::endl;
+    return true;
+}

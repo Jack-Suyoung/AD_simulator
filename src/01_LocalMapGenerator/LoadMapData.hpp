@@ -6,6 +6,11 @@
 
 #include "../00_Common/CommonTypes.hpp"
 
+struct LoadMapData {
+    std::vector<Point> center_line; // 차로 중앙선
+    std::vector<Point> left_lane;   // 좌측 차선
+    std::vector<Point> right_lane;  // 우측 차선
+};
 
 // MapData 클래스 정의
 class MapData {
@@ -23,6 +28,16 @@ private:
     std::vector<Point> center_line; // 차로 중앙
     std::vector<Point> left_lane;   // 좌측 차선
     std::vector<Point> right_lane;  // 우측 차선
+};
+
+class LocalMapGenerator
+{
+public:
+    LocalMapGenerator(const std::string& map_file);
+    bool LoadMap(LoadMapData& output_map);
+
+private:
+    std::string map_file_path;
 };
 
 #endif
