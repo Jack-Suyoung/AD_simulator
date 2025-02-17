@@ -1,25 +1,42 @@
-#include <iostream>
 #include "SimulatorManager.hpp"
 
-// 생성자: 초기 프레임을 0으로 설정
+// 생성자
 SimulatorManager::SimulatorManager() : current_frame_(0) {}
 
-// 프레임을 1 증가시키는 함수
+// 초기화 함수
+void SimulatorManager::Initialize() {
+    // 01_ 맵 데이터 생성
+    MapGenerator(&map_info_);
+
+    // 초기 Ego 차량 상태 설정
+    ego_state_.Global_X_m = map_info_.center_line[0].x;
+    ego_state_.Global_Y_m = map_info_.center_line[0].y;
+    ego_state_.Global_Heading_rad = atan2(
+        map_info_.center_line[1].y - map_info_.center_line[0].y,
+        map_info_.center_line[1].x - map_info_.center_line[0].x
+    );
+}
+
+// 한 프레임 실행
 void SimulatorManager::Update() {
+    // 02_ 행동 계획
+    BehaviorPlanning(&map_info_, &behavior_info_);
+
+    // 03_ 경로 계획 및 차량 제어
+    PlanningAndControl(&behavior_info_, &planning_info_, &control_info_);
+
+    // 04_ 차량 상태 업데이트
+    VehicleStateUpdate(&control_info_, &ego_state_);
+
+    // 프레임 증가
     current_frame_++;
 }
 
-// 현재 프레임을 반환하는 함수
-int SimulatorManager::GetCurrentFrame() const {
-    return current_frame_;
-}
-
-// 프레임을 초기화하는 함수
-void SimulatorManager::Reset() {
-    current_frame_ = 0;
-}
-
-// 현재 프레임을 출력하는 함수
+// 현재 프레임 출력
 void SimulatorManager::PrintFrame() const {
-    std::cout << "Current Frame: " << current_frame_ << std::endl;
+    std::cout << "[Frame " << current_frame_ << "] "
+              << "X: " << ego_state_.Global_X_m
+              << ", Y: " << ego_state_.Global_Y_m
+              << ", Heading: " << ego_state_.Global_Heading_rad
+              << std::endl;
 }

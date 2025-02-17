@@ -1,34 +1,35 @@
-# 컴파일러 및 옵션 설정
 CC = g++
-CFLAGS = -I . -I 01_LocalMapGenerator -I 02_BehaviorPlanning -I 03_PlanningAndControl 04_VehicleStateUpdate -Wall -Wextra -std=c++17
+CFLAGS = -I. -I00_SimulatorManager -I01_LocalMapGenerator -I02_BehaviorPlanning -I03_PlanningAndControl -I04_VehicleStateUpdate -I05_Visualizer -Iimgui -Wall -Wextra -std=c++17 -g
+LDFLAGS = -lglfw -lGLEW -lGL -lm
 
-# 소스 및 객체 파일 경로 설정
 SRC = main.cpp \
-	00_SimulatorManager/00_SimulatorManager \
-	01_LocalMapGenerator/LoadMapData.cpp \
-	01_LocalMapGenerator/MapGenerator.cpp \
-	02_BehaviorPlanning/BehaviorPlanning.cpp \
-	03_PlanningAndControl/PlanningAndControl.cpp \
-	04_VehicleStateUpdate/VehicleStateUpdate.cpp \
-	04_VehicleStateUpdate/KinematicBicycleModel.cpp \
-	04_VehicleStateUpdate/GlobalStateUpdater.cpp
+      00_SimulatorManager/SimulatorManager.cpp \
+      01_LocalMapGenerator/MapGenerator.cpp \
+      01_LocalMapGenerator/LoadMapData.cpp \
+      02_BehaviorPlanning/BehaviorPlanning.cpp \
+      03_PlanningAndControl/PlanningAndControl.cpp \
+      04_VehicleStateUpdate/VehicleStateUpdate.cpp \
+      04_VehicleStateUpdate/KinematicBicycleModel.cpp \
+      04_VehicleStateUpdate/GlobalStateUpdater.cpp \
+      05_Visualizer/Visualizer.cpp \
+      imgui/imgui.cpp \
+      imgui/imgui_draw.cpp \
+      imgui/imgui_widgets.cpp \
+      imgui/imgui_tables.cpp \
+      imgui/imgui_impl_glfw.cpp \
+      imgui/imgui_impl_opengl3.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-# 실행 파일 이름
 TARGET = ad_simulator
 
-# 기본 빌드 규칙
 all: $(TARGET)
 
-# 실행 파일 생성 규칙
 $(TARGET): $(OBJ)
-	$(CC) -o $(TARGET) $(OBJ)
+	$(CC) -o $(TARGET) $(OBJ) $(LDFLAGS)
 
-# .cpp -> .o 변환 규칙 (경로 인식 문제 해결)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# 정리 규칙
 clean:
 	rm -f $(OBJ) $(TARGET)
