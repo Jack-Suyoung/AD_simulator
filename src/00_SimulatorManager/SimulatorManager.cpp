@@ -13,14 +13,14 @@ void SimulatorManager::Initialize() {
     ego_state_.Global_Y_m = map_info_.center_line[0].y;
     ego_state_.Global_Heading_rad = atan2(
         map_info_.center_line[1].y - map_info_.center_line[0].y,
-        map_info_.center_line[1].x - map_info_.center_line[0].x
-    );
+        map_info_.center_line[1].x - map_info_.center_line[0].x);
+    ego_state_.speed_mps = 5.0;
 }
 
 // 한 프레임 실행
 void SimulatorManager::Update() {
     // 02_ 행동 계획
-    BehaviorPlanning(&map_info_, &behavior_info_);
+    BehaviorPlanning(&map_info_,  &ego_state_, &behavior_info_);
 
     // 03_ 경로 계획 및 차량 제어
     PlanningAndControl(&behavior_info_, &planning_info_, &control_info_);

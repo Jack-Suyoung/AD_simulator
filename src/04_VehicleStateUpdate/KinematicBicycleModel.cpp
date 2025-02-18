@@ -7,10 +7,10 @@ KinematicBicycleModel::KinematicBicycleModel(double speed_mps, double wheelbase)
 
 // 로컬 좌표계에서 차량 상태 업데이트
 void KinematicBicycleModel::UpdateLocal(double steering, double acceleration, double dt) {
-    double beta = atan(0.5 * tan(steering)); // Slip angle 보정
+    //double beta = atan(0.5 * tan(steering)); // Slip angle 보정
 
-    local_x_ += velocity_ * cos(local_heading_ + beta) * dt;
-    local_y_ += velocity_ * sin(local_heading_ + beta) * dt;
+    local_x_ += velocity_ * cos(local_heading_) * dt;
+    local_y_ += velocity_ * sin(local_heading_) * dt;
     local_heading_ += (velocity_ / wheelbase_) * tan(steering) * dt;
     velocity_ += acceleration * dt;
 }
