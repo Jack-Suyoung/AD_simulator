@@ -36,7 +36,7 @@ typedef struct tBehaviorInfo {
 
 // Planning And Control 표준 인터페이스
 typedef struct tPlanningResults {
-    std::vector<VehicleState_t> stLocalPath;
+    std::vector<Point> stLocalPath;
 }PlanningResults_t;
 
 typedef struct tControlResults {

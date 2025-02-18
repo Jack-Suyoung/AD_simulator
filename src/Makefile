@@ -1,13 +1,15 @@
 CC = g++
-CFLAGS = -I. -I00_SimulatorManager -I01_LocalMapGenerator -I02_BehaviorPlanning -I03_PlanningAndControl -I04_VehicleStateUpdate -I05_Visualizer -Iimgui -Wall -Wextra -std=c++17 -g
+CFLAGS = -I. -Iexternal/eigen -I00_Common -I00_SimulatorManager -I01_LocalMapGenerator -I02_BehaviorPlanning -I03_PlanningAndControl -I04_VehicleStateUpdate -I05_Visualizer -Iimgui -Wall -Wextra -std=c++17 -g
 LDFLAGS = -lglfw -lGLEW -lGL -lm
 
 SRC = main.cpp \
+      00_Common/CommonFunc.cpp \
       00_SimulatorManager/SimulatorManager.cpp \
       01_LocalMapGenerator/MapGenerator.cpp \
       01_LocalMapGenerator/LoadMapData.cpp \
       02_BehaviorPlanning/BehaviorPlanning.cpp \
       03_PlanningAndControl/PlanningAndControl.cpp \
+      03_PlanningAndControl/LateralControl.cpp \
       04_VehicleStateUpdate/VehicleStateUpdate.cpp \
       04_VehicleStateUpdate/KinematicBicycleModel.cpp \
       04_VehicleStateUpdate/GlobalStateUpdater.cpp \

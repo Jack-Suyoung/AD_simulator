@@ -9,8 +9,8 @@ void SimulatorManager::Initialize() {
     MapGenerator(&map_info_);
 
     // 초기 Ego 차량 상태 설정
-    ego_state_.Global_X_m = map_info_.center_line[0].x;
-    ego_state_.Global_Y_m = map_info_.center_line[0].y;
+    ego_state_.Global_X_m = map_info_.center_line[0].x + 1.0;
+    ego_state_.Global_Y_m = map_info_.center_line[0].y + 1.0;
     ego_state_.Global_Heading_rad = atan2(
         map_info_.center_line[1].y - map_info_.center_line[0].y,
         map_info_.center_line[1].x - map_info_.center_line[0].x);
@@ -19,11 +19,19 @@ void SimulatorManager::Initialize() {
 
 // 한 프레임 실행
 void SimulatorManager::Update() {
+    VehicleState_t stLocalCurrentEgoState = {0};
+    
     // 02_ 행동 계획
     BehaviorPlanning(&map_info_,  &ego_state_, &behavior_info_);
 
     // 03_ 경로 계획 및 차량 제어
-    PlanningAndControl(&behavior_info_, &planning_info_, &control_info_);
+    stLocalCurrentEgoState.FrontWhlAng_rad = ego_state_.FrontWhlAng_rad;
+    stLocalCurrentEgoState.speed_mps = ego_state_.speed_mps;
+    stLocalCurrentEgoState.Global_Heading_rad = 0.0; // Local
+    stLocalCurrentEgoState.Global_X_m = 0.0; // Local
+    stLocalCurrentEgoState.Global_Y_m = 0.0; // Local
+
+    PlanningAndControl(&behavior_info_, &stLocalCurrentEgoState, &planning_info_, &control_info_);
 
     // 04_ 차량 상태 업데이트
     VehicleStateUpdate(&control_info_, &ego_state_);

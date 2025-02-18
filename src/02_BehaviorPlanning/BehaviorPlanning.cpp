@@ -3,11 +3,11 @@
 #include <vector>
 
 #include "../00_Common/CommonTypes.hpp"
+#include "../00_Common/CommonFunc.hpp"
 
 #include "BehaviorPlanning.hpp"
 
 // Function Declaration
-static int FindClosestWaypoint(const std::vector<Point>& waypoints, double ego_x, double ego_y);
 static Point TransformToLocal(const Point& global_point, const VehicleState_t& ego_state);
 
 // Functino Definition
@@ -74,28 +74,6 @@ void BehaviorPlanning(const MapInfo* pstLMDoutput, VehicleState_t *pstEgoState, 
 }
 
 
-
-
-static int FindClosestWaypoint(const std::vector<Point>& waypoints, double ego_x, double ego_y) {
-    int closest_index = 0;
-    double min_distance = std::numeric_limits<double>::max();
-
-    // Linear Search
-    for (size_t i = 0; i < waypoints.size(); ++i) {
-        double dx = ego_x - waypoints[i].x;
-        double dy = ego_y - waypoints[i].y;
-        double distance = std::sqrt(dx * dx + dy * dy);
-
-        if (distance < min_distance) {
-            min_distance = distance;
-            closest_index = static_cast<int>(i);
-        }
-        else{
-            // Do Nothing
-        }
-    }
-    return closest_index;
-}
 
 // 전역 좌표 → 로컬 좌표 변환 함수
 Point TransformToLocal(const Point& global_point, const VehicleState_t& ego_state) {
