@@ -24,7 +24,9 @@ void PlanningAndControl(const BehaviorInfo_t* pstBPInfo, VehicleState_t* ego_sta
 
     // Control
     // Path Control
-    pstControlInfo->stStrCmd_rad = StanleyControl(pstPlanningInfo, ego_state, 1.5, 2.0);
+    double f64TargetSteer_rad = StanleyControl(pstPlanningInfo, ego_state, 1.5, 2.0);
+
+    pstControlInfo->stStrCmd_rad = PIDController(f64TargetSteer_rad, 0.1);
 
     // Speed Control
     pstControlInfo->stAccelCmd_mps2 = 0.0;

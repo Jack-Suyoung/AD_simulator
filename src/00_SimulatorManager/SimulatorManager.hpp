@@ -19,6 +19,9 @@ public:
     // Getter 함수 (Visualizer에서 데이터 조회)
     int GetCurrentFrame() const { return current_frame_; }
     const VehicleState_t& GetVehicleState() const { return ego_state_; }
+    const PlanningResults_t& GetPathResult() const { return planning_info_; } // 🔹 Path 정보 반환
+    const MapInfo& GetMapInfo() const { return map_info_; } // 🔹 맵 정보 반환
+    const VizDebug_t& GetVizDebug() const { return viz_debug_; }  // 🔹 Visualizer용 디버깅 데이터 반환
 
 private:
     int current_frame_;  // 현재 프레임
@@ -29,6 +32,9 @@ private:
     PlanningResults_t planning_info_;
     ControlResults_t control_info_;
     VehicleState_t ego_state_;
+    VizDebug_t viz_debug_;  // 🔹 Visualizer 디버깅 데이터
+
+    void ConvertLocalToGlobalPath();  // 🔹 로컬 좌표 -> 글로벌 좌표 변환 함수
 };
 
 #endif // SIMULATOR_MANAGER_HPP

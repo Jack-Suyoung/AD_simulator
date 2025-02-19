@@ -15,6 +15,7 @@ void SimulatorManager::Initialize() {
         map_info_.center_line[1].y - map_info_.center_line[0].y,
         map_info_.center_line[1].x - map_info_.center_line[0].x);
     ego_state_.speed_mps = 5.0;
+    ego_state_.WheelBase_m = 3.0;
 }
 
 // 한 프레임 실행
@@ -36,6 +37,9 @@ void SimulatorManager::Update() {
     // 04_ 차량 상태 업데이트
     VehicleStateUpdate(&control_info_, &ego_state_);
 
+    // 🔹 Local 좌표 -> Global 좌표 변환 (Visualizer용)
+    ConvertLocalToGlobalPath();
+
     // 프레임 증가
     current_frame_++;
 }
@@ -47,4 +51,20 @@ void SimulatorManager::PrintFrame() const {
               << ", Y: " << ego_state_.Global_Y_m
               << ", Heading: " << ego_state_.Global_Heading_rad
               << std::endl;
+}
+
+// 🟢 로컬 좌표 -> 글로벌 좌표 변환 함수 (Visualizer용)
+void SimulatorManager::ConvertLocalToGlobalPath() {
+    viz_debug_.stPathPlanningGlobal.clear();
+
+    for (const auto& local_point : planning_info_.stLocalPath) {
+        Point global_point;
+        double cos_theta = cos(-ego_state_.Global_Heading_rad);
+        double sin_theta = sin(-ego_state_.Global_Heading_rad);
+
+        global_point.x = ego_state_.Global_X_m + local_point.x * cos_theta - local_point.y * sin_theta;
+        global_point.y = ego_state_.Global_Y_m + local_point.x * sin_theta + local_point.y * cos_theta;
+
+        viz_debug_.stPathPlanningGlobal.push_back(global_point);
+    }
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <algorithm>
 
 #include "../00_Common/CommonTypes.hpp"
 #include "../00_Common/CommonFunc.hpp"
@@ -68,4 +69,29 @@ double StanleyControl(const PlanningResults_t* path_result, const VehicleState_t
     if (steering_angle < -max_steer) steering_angle = -max_steer;
 
     return steering_angle;
+}
+
+double PIDController(const double SteerSrc_rad, double dt)
+{
+    static double integral_cte = 0.0;
+    static double prev_cte = 0.0;
+    static double prev_ster_angle_rad = 0.0;
+
+    const double kp = 0.3;
+    const double ki = 0.01;
+    const double kd = 0.2;
+
+       // 🔹 2️⃣ PID 제어기로 조향각 스무딩 (PID Controller)
+       double error = SteerSrc_rad;
+       integral_cte += error * dt;
+       double derivative_cte = (error - prev_cte) / dt;
+       double pid_correction = kp * error + ki * integral_cte + kd * derivative_cte;
+       prev_cte = error;
+   
+       // 🔹 3️⃣ 최종 조향각 결정 (PID 적용 후 보정)
+       double filtered_steering_angle = prev_ster_angle_rad + pid_correction;
+       filtered_steering_angle = std::clamp(filtered_steering_angle, -M_PI / 4, M_PI / 4);  // 조향각 제한
+   
+       prev_ster_angle_rad = filtered_steering_angle;
+       return filtered_steering_angle;
 }

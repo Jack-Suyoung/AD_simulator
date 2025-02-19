@@ -1,5 +1,9 @@
 CC = g++
-CFLAGS = -I. -Iexternal/eigen -I00_Common -I00_SimulatorManager -I01_LocalMapGenerator -I02_BehaviorPlanning -I03_PlanningAndControl -I04_VehicleStateUpdate -I05_Visualizer -Iimgui -Wall -Wextra -std=c++17 -g
+CFLAGS = -I. -Iexternal/implot -Iimgui -Iexternal/eigen \
+         -I00_SimulatorManager -I01_LocalMapGenerator -I02_BehaviorPlanning \
+         -I03_PlanningAndControl -I04_VehicleStateUpdate -I05_Visualizer \
+         -Wall -Wextra -std=c++17 -g
+
 LDFLAGS = -lglfw -lGLEW -lGL -lm
 
 SRC = main.cpp \
@@ -12,14 +16,15 @@ SRC = main.cpp \
       03_PlanningAndControl/LateralControl.cpp \
       04_VehicleStateUpdate/VehicleStateUpdate.cpp \
       04_VehicleStateUpdate/KinematicBicycleModel.cpp \
-      04_VehicleStateUpdate/GlobalStateUpdater.cpp \
       05_Visualizer/Visualizer.cpp \
       imgui/imgui.cpp \
       imgui/imgui_draw.cpp \
       imgui/imgui_widgets.cpp \
       imgui/imgui_tables.cpp \
       imgui/imgui_impl_glfw.cpp \
-      imgui/imgui_impl_opengl3.cpp
+      imgui/imgui_impl_opengl3.cpp \
+      external/implot/implot.cpp \
+      external/implot/implot_items.cpp  # 🔹 ImPlot 추가
 
 OBJ = $(SRC:.cpp=.o)
 

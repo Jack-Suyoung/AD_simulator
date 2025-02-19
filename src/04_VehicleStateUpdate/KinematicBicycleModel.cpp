@@ -1,23 +1,22 @@
-#include "KinematicBicycleModel.hpp"
 #include <cmath>
 
-KinematicBicycleModel::KinematicBicycleModel(double speed_mps, double wheelbase)
-    : local_x_(0.0), local_y_(0.0), local_heading_(0.0),
-      velocity_(speed_mps), wheelbase_(wheelbase) {}
+#include "../00_Common/CommonTypes.hpp"
+#include "../00_Common/CommonFunc.hpp"
 
-// 로컬 좌표계에서 차량 상태 업데이트
-void KinematicBicycleModel::UpdateLocal(double steering, double acceleration, double dt) {
+#include "KinematicBicycleModel.hpp"
+
+// 기본 생성자 구현
+KinematicBicycleModel::KinematicBicycleModel() {
+    // 초기화할 멤버 변수가 없으면 비워둘 수 있음
+}
+
+void KinematicBicycleModel::Update(VehicleState_t *pstEgoState, double steering, double acceleration, double dt) {
     //double beta = atan(0.5 * tan(steering)); // Slip angle 보정
 
-    local_x_ += velocity_ * cos(local_heading_) * dt;
-    local_y_ += velocity_ * sin(local_heading_) * dt;
-    local_heading_ += (velocity_ / wheelbase_) * tan(steering) * dt;
-    velocity_ += acceleration * dt;
+    pstEgoState->Global_X_m += pstEgoState->speed_mps * cos(pstEgoState->Global_Heading_rad) * dt;
+    pstEgoState->Global_Y_m += pstEgoState->speed_mps  * sin(pstEgoState->Global_Heading_rad) * dt;
+    pstEgoState->Global_Heading_rad += (pstEgoState->speed_mps / pstEgoState->WheelBase_m) * tan(steering) * dt;
+    pstEgoState->FrontWhlAng_rad = steering;
+    pstEgoState->speed_mps += acceleration * dt;
 }
 
-// 로컬 상태 출력
-void KinematicBicycleModel::PrintLocalState() const {
-    std::cout << "Local -> X: " << local_x_ << ", Y: " << local_y_ 
-              << ", Heading: " << local_heading_ << " rad, Velocity: " 
-              << velocity_ << " mps" << std::endl;
-}

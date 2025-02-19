@@ -14,6 +14,7 @@ typedef struct tVehicleState{
     double Global_Heading_rad;
     double FrontWhlAng_rad;
     double speed_mps;
+    double WheelBase_m;
 }VehicleState_t;
 
 // Map Generator 표준 인터페이스
@@ -43,5 +44,10 @@ typedef struct tControlResults {
     double stStrCmd_rad;
     double stAccelCmd_mps2;
 }ControlResults_t;
+
+typedef struct tVizDebug {
+    std::vector<Point> stPathPlanningGlobal;
+}VizDebug_t;
+
 
 #endif // COMMON_TYPES_HPP
